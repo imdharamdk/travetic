@@ -26,8 +26,10 @@
           <li><a href="#journeys">Journeys</a></li>
           <li><a href="#india">Destinations</a></li>
           <li><a href="#packages">Packages</a></li>
+          <li><a href="#insights">Intelligence</a></li>
           <li><a href="#canvas">Trip Canvas</a></li>
           <li><a href="#community">Community</a></li>
+          <li><a href="#admin">Admin</a></li>
         </ul>
         <a class="btn btn-outline" href="#auth">Start trial</a>
       </nav>
@@ -519,6 +521,126 @@
               <span>per duo</span>
             </div>
             <button class="btn btn-outline" data-auth-open>Hold inventory</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--analytics" id="insights">
+        <div class="section-header">
+          <p class="eyebrow">Intelligence stack</p>
+          <h2>Advance every decision with live corridor data</h2>
+          <p>
+            Tap aggregated search demand, ops bandwidth, and cultural signals to know
+            which journeys deserve front-row placement each week.
+          </p>
+        </div>
+        <div class="insights-grid">
+          <article class="insight-panel">
+            <header>
+              <h3>Corridor surge monitor</h3>
+              <span>Refreshed every 15 minutes</span>
+            </header>
+            <ul class="insight-list" id="corridor-list"></ul>
+          </article>
+          <article class="insight-panel insight-panel--chart">
+            <header>
+              <h3>Ops readiness board</h3>
+              <span>Capacity vs demand</span>
+            </header>
+            <div class="insight-chart" id="insight-chart"></div>
+            <p class="insight-note">
+              Signals blend airlift data, visa wait times, concierge staffing, and independent hotel holds.
+            </p>
+          </article>
+          <article class="insight-panel insight-panel--stack">
+            <header>
+              <h3>Signal tapes</h3>
+              <span>Alerts flowing into Travetic OS</span>
+            </header>
+            <div class="insight-strip" id="insight-ticker"></div>
+            <ul class="insight-meta">
+              <li>
+                <strong>12</strong>
+                <span>Weather reroute alerts</span>
+              </li>
+              <li>
+                <strong>7</strong>
+                <span>Festival priority calls</span>
+              </li>
+              <li>
+                <strong>18</strong>
+                <span>Fresh inventory unlocks</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section admin-section" id="admin">
+        <div class="section-header">
+          <p class="eyebrow">Admin panel</p>
+          <h2>Operate Travetic OS like a control tower</h2>
+          <p>
+            Review inbound requests, release inventory holds, and nudge teammates without leaving the dashboard.
+            This mock console mirrors what clients receive on activation day.
+          </p>
+        </div>
+        <div class="admin-grid">
+          <article class="admin-card admin-card--metrics">
+            <div>
+              <p class="eyebrow">Live revenue</p>
+              <h3>₹82.4L</h3>
+              <span>Trailing 30 days</span>
+            </div>
+            <div>
+              <p class="eyebrow">Client NPS</p>
+              <h3>74</h3>
+              <span>+6 vs last quarter</span>
+            </div>
+            <div>
+              <p class="eyebrow">Active seats</p>
+              <h3>58</h3>
+              <span>Across 11 studios</span>
+            </div>
+          </article>
+          <article class="admin-card admin-card--queue">
+            <h3>Automation queue</h3>
+            <ul class="queue-list">
+              <li><span>Deal Desk</span><strong>14 pending</strong></li>
+              <li><span>Concierge nudges</span><strong>9 live</strong></li>
+              <li><span>Inventory holds</span><strong>6 expiring</strong></li>
+            </ul>
+            <p class="queue-foot">WhatsApp + SMS failsafes are armed for everything marked urgent.</p>
+          </article>
+          <article class="admin-console">
+            <div class="admin-tabs">
+              <button class="active" type="button" data-admin-tab="requests">
+                Live requests
+                <span class="tab-badge" aria-label="requests in queue">4</span>
+              </button>
+              <button type="button" data-admin-tab="inventory">
+                Inventory
+                <span class="tab-badge" aria-label="inventory rows">5</span>
+              </button>
+              <button type="button" data-admin-tab="team">
+                Team
+                <span class="tab-badge" aria-label="team members">4</span>
+              </button>
+            </div>
+            <div class="admin-table" id="admin-table"></div>
+            <form class="admin-form" id="admin-broadcast">
+              <label>
+                Broadcast update
+                <textarea
+                  name="broadcast"
+                  rows="2"
+                  placeholder="Share a quick note with every on-call stylist"
+                  required
+                ></textarea>
+              </label>
+              <button class="btn" type="submit">Send bulletin</button>
+            </form>
+            <p class="admin-status" id="admin-status" role="status" aria-live="polite"></p>
           </article>
         </div>
       </section>
