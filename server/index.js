@@ -138,10 +138,11 @@ app.get('/api/admin/claim', async (req, res) => {
   return res.json({ claim });
 });
 
-app.use(express.static(path.join(__dirname, '../public')));
+const frontRoot = path.join(__dirname, '..');
+app.use(express.static(frontRoot));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(frontRoot, 'index.html'));
 });
 
 app.listen(PORT, () => {
