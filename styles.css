@@ -529,6 +529,13 @@ main {
   padding: 1rem 1.2rem 1.5rem;
 }
 
+.destination-price {
+  display: block;
+  margin-top: 0.6rem;
+  font-weight: 600;
+  color: #fff;
+}
+
 .package-grid {
   margin-top: 2rem;
   display: grid;
