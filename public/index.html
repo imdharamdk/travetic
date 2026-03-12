@@ -627,6 +627,15 @@
                 <span class="tab-badge" aria-label="team members">4</span>
               </button>
             </div>
+            <div class="admin-access">
+              <label>
+                Admin access code
+                <input id="admin-token-input" type="password" placeholder="Paste admin secret" />
+              </label>
+              <button id="admin-token-submit" type="button" class="btn">Load bookings</button>
+              <span class="admin-token-message" id="admin-token-message"></span>
+            </div>
+            <div class="admin-booking-count" id="admin-booking-count"></div>
             <div class="admin-table" id="admin-table"></div>
             <form class="admin-form" id="admin-broadcast">
               <label>
@@ -771,6 +780,7 @@
           <textarea placeholder="Where do you want to wake up next?" rows="3"></textarea>
           <button class="btn" type="submit">Request a concept</button>
         </form>
+        <p class="cta-feedback" id="cta-feedback" role="status" aria-live="polite"></p>
       </section>
     </main>
 

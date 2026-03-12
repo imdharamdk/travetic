@@ -14,6 +14,8 @@ const authSection = document.getElementById('auth');
 const authButtons = document.querySelectorAll('[data-auth-open]');
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
+const ctaForm = document.querySelector('.cta-form');
+const ctaFeedback = document.getElementById('cta-feedback');
 const authSuccess = document.getElementById('auth-success');
 const corridorList = document.getElementById('corridor-list');
 const insightChart = document.getElementById('insight-chart');
@@ -22,8 +24,15 @@ const adminTabs = document.querySelectorAll('[data-admin-tab]');
 const adminTable = document.getElementById('admin-table');
 const adminBroadcast = document.getElementById('admin-broadcast');
 const adminStatus = document.getElementById('admin-status');
+const adminTokenInput = document.getElementById('admin-token-input');
+const adminTokenSubmit = document.getElementById('admin-token-submit');
+const adminTokenMessage = document.getElementById('admin-token-message');
+const adminBookingCount = document.getElementById('admin-booking-count');
+
+const API_ROOT = '/api';
 let adminStatusTimer;
-const firstAdminKey = 'travetic-first-admin';
+let adminTokenValue = '';
+let bookingsCache = [];
 
 const moodMap = {
   'Mediterranean coasts': {
@@ -156,50 +165,7 @@ const tickerSignals = [
   'Andaman seaplane maintenance lock from 3–5 April',
 ];
 
-const adminData = {
-  requests: {
-    columns: [
-      { label: 'Client', key: 'client' },
-      { label: 'Journey', key: 'journey' },
-      { label: 'Budget', key: 'budget' },
-      { label: 'ETA', key: 'eta' },
-      { label: 'Status', key: 'status' },
-    ],
-    rows: [
-      {
-        client: 'Lila & Dev',
-        journey: 'Ladakh heli traverse',
-        budget: '₹4.4L',
-        eta: '18 min',
-        status: 'Ops reviewing',
-        tone: 'warn',
-      },
-      {
-        client: 'Studio Areté',
-        journey: 'Lisbon terrace interlude',
-        budget: '₹2.1L',
-        eta: '44 min',
-        status: 'Awaiting documents',
-        tone: 'warn',
-      },
-      {
-        client: 'Anaya team',
-        journey: 'Tokyo neon kitchens',
-        budget: '₹3.6L',
-        eta: '1h 12m',
-        status: 'Chef confirmed',
-        tone: 'ok',
-      },
-      {
-        client: 'Harper Collective',
-        journey: 'Kerala restorative',
-        budget: '₹2.8L',
-        eta: '2h 05m',
-        status: 'Auto quoted',
-        tone: 'ok',
-      },
-    ],
-  },
+const adminStaticTables = {
   inventory: {
     columns: [
       { label: 'Asset', key: 'asset' },
@@ -285,11 +251,45 @@ const adminData = {
   },
 };
 
+const bookingColumns = [
+  { label: 'Client', key: 'name' },
+  { label: 'Email', key: 'email' },
+  { label: 'Message', key: 'message' },
+  { label: 'Status', key: 'status' },
+  { label: 'Actions', key: 'actions' },
+];
+
 const getBadgeClass = (tone) => {
   if (tone === 'hot') return 'badge badge--hot';
   if (tone === 'watch') return 'badge badge--watch';
   if (tone === 'cool') return 'badge badge--cool';
+  if (tone === 'warn') return 'chip chip--warn';
+  if (tone === 'ok') return 'chip chip--ok';
   return 'badge';
+};
+
+const setAdminStatusMessage = (message, state = 'success') => {
+  if (!adminStatus) return;
+  adminStatus.textContent = message;
+  adminStatus.style.color = state === 'error' ? '#ffb199' : 'var(--accent-2)';
+  if (adminStatusTimer) {
+    clearTimeout(adminStatusTimer);
+  }
+  adminStatusTimer = setTimeout(() => {
+    adminStatus.textContent = '';
+  }, 5000);
+};
+
+const setAdminTokenMessage = (message, state = 'success') => {
+  if (!adminTokenMessage) return;
+  adminTokenMessage.textContent = message;
+  adminTokenMessage.style.color = state === 'error' ? '#ffb199' : 'var(--accent-2)';
+};
+
+const setCtaFeedback = (message, state = 'success') => {
+  if (!ctaFeedback) return;
+  ctaFeedback.textContent = message;
+  ctaFeedback.dataset.state = state;
 };
 
 const renderCorridorList = () => {
@@ -329,24 +329,24 @@ const renderInsightTicker = () => {
   insightTicker.innerHTML = tickerSignals.map((signal) => `<span>${signal}</span>`).join('');
 };
 
-const formatAdminCell = (key, value, row) => {
-  if (key === 'status') {
-    const toneClass = row.tone === 'warn' ? 'chip chip--warn' : 'chip chip--ok';
-    return `<span class="${toneClass}">${value}</span>`;
-  }
-  return value;
-};
-
-const renderAdminTable = (key = 'requests') => {
-  if (!adminTable) return;
-  const dataset = adminData[key];
-  if (!dataset) return;
+const renderAdminTable = (dataset) => {
+  if (!adminTable || !dataset) return;
   const head = dataset.columns.map((column) => `<th scope="col">${column.label}</th>`).join('');
   const body = dataset.rows
     .map(
       (row) =>
         `<tr>${dataset.columns
-          .map((column) => `<td>${formatAdminCell(column.key, row[column.key], row)}</td>`)
+          .map((column) => {
+            if (column.key === 'actions') {
+              return `<td><button class="btn btn-outline btn-mini" data-booking-id="${row.id}">Approve</button></td>`;
+            }
+            const value = row[column.key] ?? '—';
+            if (column.key === 'status') {
+              const toneClass = getBadgeClass(row[column.key] === 'approved' ? 'ok' : 'warn');
+              return `<td><span class="${toneClass}">${value}</span></td>`;
+            }
+            return `<td>${value}</td>`;
+          })
           .join('')}</tr>`,
     )
     .join('');
@@ -356,6 +356,26 @@ const renderAdminTable = (key = 'requests') => {
       <tbody>${body}</tbody>
     </table>
   `;
+  const actionButtons = adminTable.querySelectorAll('[data-booking-id]');
+  actionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      handleApproveBooking(button.dataset.bookingId);
+    });
+  });
+};
+
+const renderBookingsTable = () => {
+  const rows = bookingsCache.map((booking) => ({
+    id: booking._id,
+    name: booking.name,
+    email: booking.email,
+    message: booking.message?.slice(0, 50) || 'Booking request',
+    status: booking.status,
+  }));
+  renderAdminTable({ columns: bookingColumns, rows });
+  if (adminBookingCount) {
+    adminBookingCount.textContent = `${rows.length} request(s) loaded`;
+  }
 };
 
 const setActiveAdminTab = (key) => {
@@ -364,26 +384,149 @@ const setActiveAdminTab = (key) => {
     const isActive = tab.dataset.adminTab === key;
     tab.classList.toggle('active', isActive);
   });
-  renderAdminTable(key);
-};
-
-const setAdminStatusMessage = (message, state = 'success') => {
-  if (!adminStatus) return;
-  adminStatus.textContent = message;
-  adminStatus.style.color = state === 'error' ? '#ffb199' : 'var(--accent-2)';
-  if (adminStatusTimer) {
-    clearTimeout(adminStatusTimer);
+  if (key === 'requests') {
+    renderBookingsTable();
+    return;
   }
-  adminStatusTimer = setTimeout(() => {
-    adminStatus.textContent = '';
-  }, 5000);
+  renderAdminTable(adminStaticTables[key]);
 };
 
-renderCorridorList();
-renderInsightChart();
-renderInsightTicker();
+const renderAdminTables = () => {
+  const defaultTab = adminTabs[0]?.dataset?.adminTab ?? 'requests';
+  setActiveAdminTab(defaultTab);
+  adminTabs.forEach((tab) =>
+    tab.addEventListener('click', () => setActiveAdminTab(tab.dataset.adminTab)),
+  );
+};
 
-function updateOutput() {
+const fetchBookings = async () => {
+  if (!adminTokenValue) {
+    setAdminTokenMessage('Enter your admin secret to load bookings.', 'error');
+    return;
+  }
+  try {
+    const response = await fetch(`${API_ROOT}/bookings`, {
+      headers: {
+        Authorization: `Bearer ${adminTokenValue}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Invalid token');
+    }
+    const { bookings } = await response.json();
+    bookingsCache = bookings;
+    setAdminTokenMessage('Bookings refreshed.', 'success');
+    renderBookingsTable();
+  } catch (error) {
+    setAdminTokenMessage('Unable to load bookings.', 'error');
+  }
+};
+
+const handleApproveBooking = async (id) => {
+  if (!adminTokenValue) {
+    setAdminTokenMessage('Add the admin secret before approving.', 'error');
+    return;
+  }
+  try {
+    await fetch(`${API_ROOT}/bookings/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminTokenValue}`,
+      },
+      body: JSON.stringify({ status: 'approved' }),
+    });
+    await fetchBookings();
+    setAdminStatusMessage('Booking approved and synced.', 'success');
+  } catch (error) {
+    setAdminStatusMessage('Approval failed. Check token or network.', 'error');
+  }
+};
+
+const handleAdminTokenSubmit = () => {
+  const token = adminTokenInput?.value.trim();
+  if (!token) {
+    setAdminTokenMessage('Token cannot be blank.', 'error');
+    return;
+  }
+  adminTokenValue = token;
+  fetchBookings();
+};
+
+const handleBookingSubmit = async (event) => {
+  event.preventDefault();
+  if (!ctaForm) return;
+  const formData = new FormData(ctaForm);
+  const payload = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+  };
+  try {
+    const response = await fetch(`${API_ROOT}/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error();
+    setCtaFeedback('Concept request received. We will follow up within 48 hours.', 'success');
+    ctaForm.reset();
+  } catch (error) {
+    setCtaFeedback('There was a problem submitting your request. Try again in a second.', 'error');
+  }
+};
+
+const claimAdminSeat = async (payload) => {
+  try {
+    const response = await fetch(`${API_ROOT}/admin/claim`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error();
+    return await response.json();
+  } catch (error) {
+    return { alreadyClaimed: false };
+  }
+};
+
+const showAuthFeedback = (message, state = 'success') => {
+  if (!authSuccess) return;
+  authSuccess.textContent = message;
+  authSuccess.dataset.state = state;
+};
+
+const handleSignup = async (event) => {
+  event.preventDefault();
+  if (!signupForm) return;
+  const formData = new FormData(signupForm);
+  const payload = {
+    studio: formData.get('studio') || 'your studio',
+    email: formData.get('signupEmail'),
+    phone: formData.get('phone'),
+    volume: formData.get('volume'),
+  };
+  const claim = await claimAdminSeat(payload);
+  if (claim.alreadyClaimed) {
+    showAuthFeedback(`${payload.studio} is queued for activation. Our team will share credentials within 12 hours.`, 'success');
+    return;
+  }
+  showAuthFeedback(
+    `${payload.studio} is live as Travetic OS admin. Expect credentials + concierge reach-out within 12 hours.`,
+    'success',
+  );
+};
+
+const handleLogin = (event) => {
+  event.preventDefault();
+  if (!loginForm) return;
+  const formData = new FormData(loginForm);
+  const email = formData.get('loginEmail');
+  showAuthFeedback(`Welcome back, ${email || 'partner'}! Redirecting to your dashboard.`, 'success');
+};
+
+const updateOutput = () => {
+  if (!form || !output) return;
   const formData = new FormData(form);
   const mood = formData.get('mood');
   const pace = formData.get('pace');
@@ -405,35 +548,29 @@ function updateOutput() {
         const date = new Date(`${monthRaw}-01T00:00:00`);
         const start = new Date(date.getTime() + 20 * 24 * 60 * 60 * 1000);
         const end = new Date(start.getTime() + 5 * 24 * 60 * 60 * 1000);
-        return `${start.toLocaleDateString(undefined, {
-          month: 'short',
-          day: 'numeric',
-        })} – ${end.toLocaleDateString(undefined, {
-          month: 'short',
-          day: 'numeric',
-        })}`;
+        return `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${end.toLocaleDateString(
+          undefined,
+          { month: 'short', day: 'numeric' },
+        )}`;
       })()
     : 'Flexible';
 
-  output.querySelector('h3').textContent = `${moodInfo.title} in ${monthLabel}`;
-  output.querySelectorAll('p')[1].textContent = `${pace} pace with ${
-    travelers || 1
-  } traveler${travelers > 1 ? 's' : ''}. ${moodInfo.highlights}`;
-
-  const listItems = output.querySelectorAll('ul li');
-  listItems[0].innerHTML = `<span>Best window</span>${window}`;
-  listItems[1].innerHTML = `<span>Energy flow</span>${moodInfo.flow}`;
-  listItems[2].innerHTML = `<span>Impact score</span>${impactCopy[impact]}`;
-}
-
-if (form) {
-  form.addEventListener('input', updateOutput);
-  updateOutput();
-}
-
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
+  if (output) {
+    output.querySelector('h3').textContent = `${moodInfo.title} in ${monthLabel}`;
+    const paragraphs = output.querySelectorAll('p');
+    if (paragraphs[1]) {
+      paragraphs[1].textContent = `${pace} pace with ${travelers || 1} traveler${
+        travelers > 1 ? 's' : ''
+      }. ${moodInfo.highlights}`;
+    }
+    const listItems = output.querySelectorAll('ul li');
+    if (listItems.length >= 3) {
+      listItems[0].innerHTML = `<span>Best window</span>${window}`;
+      listItems[1].innerHTML = `<span>Energy flow</span>${moodInfo.flow}`;
+      listItems[2].innerHTML = `<span>Impact score</span>${impactCopy[impact]}`;
+    }
+  }
+};
 
 const openModal = (variantKey = 'caseStudy') => {
   if (!modal) return;
@@ -452,6 +589,19 @@ const closeModalPanel = () => {
   if (!modal) return;
   modal.setAttribute('aria-hidden', 'true');
 };
+
+const scrollToAuth = () => {
+  authSection?.scrollIntoView({ behavior: 'smooth' });
+};
+
+if (form) {
+  form.addEventListener('input', updateOutput);
+  updateOutput();
+}
+
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 if (playcase) {
   playcase.addEventListener('click', () => openModal('caseStudy'));
@@ -491,70 +641,26 @@ if (orbit) {
   window.addEventListener('pointermove', parallax);
 }
 
-const scrollToAuth = () => {
-  authSection?.scrollIntoView({ behavior: 'smooth' });
-};
-
 if (authButtons.length) {
   authButtons.forEach((button) => {
     button.addEventListener('click', scrollToAuth);
   });
 }
 
-const showAuthFeedback = (message, state = 'success') => {
-  if (!authSuccess) return;
-  authSuccess.textContent = message;
-  authSuccess.dataset.state = state;
-};
-
 if (loginForm) {
-  loginForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(loginForm);
-    const email = formData.get('loginEmail');
-    showAuthFeedback(`Welcome back, ${email || 'partner'}! Redirecting to your dashboard.`, 'success');
-  });
+  loginForm.addEventListener('submit', handleLogin);
 }
 
 if (signupForm) {
-  signupForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(signupForm);
-    const studio = formData.get('studio') || 'your studio';
-    showAuthFeedback(
-      (() => {
-        const email = formData.get('signupEmail');
-        const phone = formData.get('phone');
-        const volume = formData.get('volume');
-        const storedAdmin = localStorage.getItem(firstAdminKey);
-        if (!storedAdmin) {
-          localStorage.setItem(
-            firstAdminKey,
-            JSON.stringify({
-              studio,
-              email,
-              phone,
-              volume,
-              assignedAt: new Date().toISOString(),
-            }),
-          );
-          return `${studio} is live as Travetic OS admin. You have full control while we dial in the first experience—expect credentials + concierge reach-out within 12 hours.`;
-        }
-        return `${studio} is queued for activation. Our team will share login credentials on email + WhatsApp within 12 hours.`;
-      })(),
-      'success',
-    );
-  });
+  signupForm.addEventListener('submit', handleSignup);
 }
 
-if (adminTabs.length) {
-  const defaultTab = adminTabs[0]?.dataset?.adminTab ?? 'requests';
-  setActiveAdminTab(defaultTab);
-  adminTabs.forEach((tab) => {
-    tab.addEventListener('click', () => setActiveAdminTab(tab.dataset.adminTab));
-  });
-} else {
-  renderAdminTable();
+if (ctaForm) {
+  ctaForm.addEventListener('submit', handleBookingSubmit);
+}
+
+if (adminTokenSubmit) {
+  adminTokenSubmit.addEventListener('click', handleAdminTokenSubmit);
 }
 
 if (adminBroadcast) {
@@ -570,3 +676,8 @@ if (adminBroadcast) {
     adminBroadcast.reset();
   });
 }
+
+renderCorridorList();
+renderInsightChart();
+renderInsightTicker();
+renderAdminTables();
