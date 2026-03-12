@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travetic • Partner login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero login-hero">
+      <nav class="nav">
+        <div class="logo">Travetic</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="admin-dashboard.html">Admin CRM</a></li>
+        </ul>
+        <a class="btn btn-outline" href="index.html">Back to site</a>
+      </nav>
+      <div class="hero-copy">
+        <p class="eyebrow">Login</p>
+        <h1>Get inside Travetic OS</h1>
+        <p>
+          Use the studio login to access proposals, or claim the Travetic admin seat so you can approve bookings from the CRM dashboard.
+        </p>
+      </div>
+    </header>
+    <main>
+      <section class="section auth login-layout">
+        <div class="login-copy">
+          <h2>Studio partner login</h2>
+          <p>
+            All partner logins run through the same secure portal. The first studio that signs up becomes the admin, and the CRM dashboard records booking notes, approvals, and communications.
+          </p>
+        </div>
+        <div class="login-forms">
+          <article class="auth-card">
+            <h3>Sign in</h3>
+            <form id="site-login-form">
+              <label>
+                Work email
+                <input type="email" name="loginEmail" placeholder="you@studio.com" required />
+              </label>
+              <label>
+                Password
+                <input type="password" name="loginPassword" placeholder="••••••••" required />
+              </label>
+              <button class="btn" type="submit">Log into Travetic OS</button>
+            </form>
+            <p class="auth-note" id="login-feedback" role="status" aria-live="polite"></p>
+          </article>
+          <article class="auth-card">
+            <h3>Claim the admin seat</h3>
+            <p>Submit your studio profile and become the first admin in Travetic OS.</p>
+            <form id="site-signup-form">
+              <label>
+                Studio name
+                <input type="text" name="studio" placeholder="Susegad Journeys" required />
+              </label>
+              <label>
+                Work email
+                <input type="email" name="signupEmail" placeholder="founder@studio.com" required />
+              </label>
+              <label>
+                Phone (WhatsApp)
+                <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+              </label>
+              <label>
+                Monthly volume
+                <select name="volume">
+                  <option value="under5">Under 5</option>
+                  <option value="5-15">5 – 15</option>
+                  <option value="15-40">15 – 40</option>
+                  <option value="40+">40+</option>
+                </select>
+              </label>
+              <button class="btn" type="submit">Claim admin</button>
+            </form>
+            <p class="auth-note" id="claim-feedback" role="status" aria-live="polite"></p>
+            <a class="btn btn-outline" href="admin-dashboard.html">Go to admin CRM</a>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>© <span id="year"></span> Travetic. Crafted for curious travelers.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+      </div>
+    </footer>
+    <script src="login.js"></script>
+  </body>
+</html>

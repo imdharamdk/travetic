@@ -35,6 +35,12 @@ const bookingSchema = new mongoose.Schema(
       default: 'pending',
     },
     approvedAt: Date,
+    notes: [
+      {
+        text: String,
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true },
 );
@@ -81,20 +87,25 @@ app.get('/api/bookings', requireAdmin, async (req, res) => {
 });
 
 app.patch('/api/bookings/:id', requireAdmin, async (req, res) => {
-  const { status } = req.body;
-  if (!['pending', 'approved', 'rejected'].includes(status)) {
-    return res.status(400).json({ error: 'Invalid status' });
-  }
-
-  const updates = {
-    status,
-    approvedAt: status === 'approved' ? new Date() : null,
-  };
-
-  const booking = await Booking.findByIdAndUpdate(req.params.id, updates, { new: true });
+  const { status, note } = req.body;
+  const booking = await Booking.findById(req.params.id);
   if (!booking) {
     return res.status(404).json({ error: 'Booking not found' });
   }
+
+  if (status) {
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+      return res.status(400).json({ error: 'Invalid status' });
+    }
+    booking.status = status;
+    booking.approvedAt = status === 'approved' ? new Date() : null;
+  }
+
+  if (note) {
+    booking.notes.push({ text: note });
+  }
+
+  await booking.save();
   return res.json({ booking });
 });
 

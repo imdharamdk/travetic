@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travetic • Admin CRM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero admin-hero">
+      <nav class="nav">
+        <div class="logo">Travetic</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+        <a class="btn btn-outline" href="index.html">Back to site</a>
+      </nav>
+      <div class="hero-copy">
+        <p class="eyebrow">CRM & CMS</p>
+        <h1>Approve bookings, capture notes, and keep your studio operations visible.</h1>
+        <p>
+          Travetic OS now streams every booking into an admin console that can load live data, approve requests, and store conversation notes right next to the itinerary.
+        </p>
+      </div>
+    </header>
+    <main>
+      <section class="section admin-section">
+        <div class="section-header">
+          <p class="eyebrow">Admin CRM</p>
+          <h2>Operate with a CMS-style control tower</h2>
+          <p>
+            Authenticate with the admin secret to surface bookings, add per-booking notes, and push approvals. Every action syncs to MongoDB via the Render-hosted API.
+          </p>
+        </div>
+        <div class="admin-grid">
+          <article class="admin-card admin-card--metrics">
+            <div>
+              <p class="eyebrow">Live revenue</p>
+              <h3 id="admin-revenue">₹82.4L</h3>
+              <span>Trailing 30 days</span>
+            </div>
+            <div>
+              <p class="eyebrow">Active bookings</p>
+              <h3 id="admin-count">0</h3>
+              <span>Synced from MongoDB</span>
+            </div>
+            <div>
+              <p class="eyebrow">Open notes</p>
+              <h3 id="admin-notes">0</h3>
+              <span>CRM threads</span>
+            </div>
+          </article>
+          <article class="admin-card admin-card--queue">
+            <h3>Workflow queue</h3>
+            <ul class="queue-list" id="queue-list">
+              <li><span>Pending approvals</span><strong id="queue-pending">0</strong></li>
+              <li><span>Notes logged</span><strong id="queue-notes">0</strong></li>
+              <li><span>Recent bookings</span><strong id="queue-recent">0</strong></li>
+            </ul>
+            <p class="queue-foot">
+              Add private notes to bookings, approve them, and keep the CRM thread moving while the studio team tracks every change.
+            </p>
+          </article>
+        </div>
+        <article class="admin-console">
+          <div class="admin-access">
+            <label>
+              Admin access code
+              <input id="admin-token-input" type="password" placeholder="Paste admin secret" />
+            </label>
+            <button id="admin-token-submit" type="button" class="btn">Load bookings</button>
+            <span class="admin-token-message" id="admin-token-message"></span>
+          </div>
+          <div class="admin-booking-count" id="admin-booking-count"></div>
+          <div class="admin-table" id="admin-booking-table"></div>
+          <form class="admin-form" id="admin-broadcast">
+            <label>
+              Broadcast update
+              <textarea
+                name="broadcast"
+                rows="2"
+                placeholder="Share a quick note with every on-call stylist"
+                required
+              ></textarea>
+            </label>
+            <button class="btn" type="submit">Send bulletin</button>
+          </form>
+          <p class="admin-status" id="admin-status" role="status" aria-live="polite"></p>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>© <span id="year"></span> Travetic. Crafted for curious travelers.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+      </div>
+    </footer>
+    <script src="admin-dashboard.js"></script>
+  </body>
+</html>

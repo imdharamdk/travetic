@@ -35,6 +35,19 @@ a {
   overflow: hidden;
 }
 
+.login-hero {
+  min-height: 220px;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 112, 67, 0.2), transparent),
+    rgba(4, 7, 15, 0.95);
+  padding-top: 2rem;
+}
+
+.admin-hero {
+  min-height: 220px;
+  background: radial-gradient(circle at 30% 30%, rgba(77, 208, 225, 0.2), transparent),
+    rgba(7, 9, 20, 0.95);
+}
+
 .hero::after {
   content: '';
   position: absolute;
@@ -984,6 +997,26 @@ main {
   color: var(--muted);
 }
 
+.login-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.login-forms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.login-copy {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
 .auth-success {
   margin-top: 1rem;
   padding: 1rem;
@@ -1037,6 +1070,21 @@ main {
 
 .cta-feedback[data-state='error'] {
   color: #ffb199;
+}
+
+.section--partners {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.partner-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.partner-actions .btn-outline {
+  border-color: rgba(255, 112, 67, 0.5);
 }
 
 .footer {

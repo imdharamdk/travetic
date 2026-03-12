@@ -29,9 +29,10 @@
           <li><a href="#insights">Intelligence</a></li>
           <li><a href="#canvas">Trip Canvas</a></li>
           <li><a href="#community">Community</a></li>
-          <li><a href="#admin">Admin</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="admin-dashboard.html">Admin</a></li>
         </ul>
-        <a class="btn btn-outline" href="#auth">Start trial</a>
+        <a class="btn btn-outline" href="login.html">Start trial</a>
       </nav>
       <div class="hero-grid">
         <div class="hero-copy">
@@ -46,7 +47,7 @@
             itineraries with INR quotes in minutes.
           </p>
           <div class="hero-actions">
-            <a class="btn" href="#auth">Start free trial</a>
+            <a class="btn" href="login.html">Start free trial</a>
             <button class="ghost" id="playcase">
               <span>Play reel</span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -156,7 +157,7 @@
               </li>
             </ul>
             <div class="platform-cta">
-              <button class="btn" data-auth-open>Book a walkthrough</button>
+            <a class="btn" href="login.html">Book a walkthrough</a>
               <button class="ghost" id="launch-demo">
                 <span>Launch live demo</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -492,7 +493,7 @@
               <strong>₹1,85,000</strong>
               <span>for 2 guests</span>
             </div>
-            <button class="btn btn-outline" data-auth-open>Send proposal</button>
+            <a class="btn btn-outline" href="login.html">Send proposal</a>
           </article>
           <article>
             <p class="eyebrow">Wellness arc</p>
@@ -506,7 +507,7 @@
               <strong>₹2,60,000</strong>
               <span>per couple</span>
             </div>
-            <button class="btn btn-outline" data-auth-open>Share deck</button>
+            <a class="btn btn-outline" href="login.html">Share deck</a>
           </article>
           <article>
             <p class="eyebrow">Adventure lab</p>
@@ -520,7 +521,7 @@
               <strong>₹4,90,000</strong>
               <span>per duo</span>
             </div>
-            <button class="btn btn-outline" data-auth-open>Hold inventory</button>
+            <a class="btn btn-outline" href="login.html">Hold inventory</a>
           </article>
         </div>
       </section>
@@ -576,158 +577,20 @@
         </div>
       </section>
 
-      <section class="section admin-section" id="admin">
+      <section class="section section--partners" id="partners">
         <div class="section-header">
-          <p class="eyebrow">Admin panel</p>
-          <h2>Operate Travetic OS like a control tower</h2>
+          <p class="eyebrow">Studio access</p>
+          <h2>Log into Travetic OS</h2>
           <p>
-            Review inbound requests, release inventory holds, and nudge teammates without leaving the dashboard.
-            This mock console mirrors what clients receive on activation day.
+            Head to the partner login to claim your workspace or move to the CRM-like admin dashboard and approve bookings.
           </p>
         </div>
-        <div class="admin-grid">
-          <article class="admin-card admin-card--metrics">
-            <div>
-              <p class="eyebrow">Live revenue</p>
-              <h3>₹82.4L</h3>
-              <span>Trailing 30 days</span>
-            </div>
-            <div>
-              <p class="eyebrow">Client NPS</p>
-              <h3>74</h3>
-              <span>+6 vs last quarter</span>
-            </div>
-            <div>
-              <p class="eyebrow">Active seats</p>
-              <h3>58</h3>
-              <span>Across 11 studios</span>
-            </div>
-          </article>
-          <article class="admin-card admin-card--queue">
-            <h3>Automation queue</h3>
-            <ul class="queue-list">
-              <li><span>Deal Desk</span><strong>14 pending</strong></li>
-              <li><span>Concierge nudges</span><strong>9 live</strong></li>
-              <li><span>Inventory holds</span><strong>6 expiring</strong></li>
-            </ul>
-            <p class="queue-foot">WhatsApp + SMS failsafes are armed for everything marked urgent.</p>
-          </article>
-          <article class="admin-console">
-            <div class="admin-tabs">
-              <button class="active" type="button" data-admin-tab="requests">
-                Live requests
-                <span class="tab-badge" aria-label="requests in queue">4</span>
-              </button>
-              <button type="button" data-admin-tab="inventory">
-                Inventory
-                <span class="tab-badge" aria-label="inventory rows">5</span>
-              </button>
-              <button type="button" data-admin-tab="team">
-                Team
-                <span class="tab-badge" aria-label="team members">4</span>
-              </button>
-            </div>
-            <div class="admin-access">
-              <label>
-                Admin access code
-                <input id="admin-token-input" type="password" placeholder="Paste admin secret" />
-              </label>
-              <button id="admin-token-submit" type="button" class="btn">Load bookings</button>
-              <span class="admin-token-message" id="admin-token-message"></span>
-            </div>
-            <div class="admin-booking-count" id="admin-booking-count"></div>
-            <div class="admin-table" id="admin-table"></div>
-            <form class="admin-form" id="admin-broadcast">
-              <label>
-                Broadcast update
-                <textarea
-                  name="broadcast"
-                  rows="2"
-                  placeholder="Share a quick note with every on-call stylist"
-                  required
-                ></textarea>
-              </label>
-              <button class="btn" type="submit">Send bulletin</button>
-            </form>
-            <p class="admin-status" id="admin-status" role="status" aria-live="polite"></p>
-          </article>
+        <div class="partner-actions">
+          <a class="btn" href="login.html">Studio login</a>
+          <a class="btn btn-outline" href="admin-dashboard.html">Admin CRM</a>
         </div>
       </section>
 
-      <section class="section auth" id="auth">
-        <div class="section-header">
-          <p class="eyebrow">Log in or create workspace</p>
-          <h2>Manage your SaaS control center</h2>
-          <p>
-            Issue multi-user logins, push INR-ready proposals, and monitor live
-            bookings from one secure hub.
-          </p>
-        </div>
-        <div class="auth-grid">
-          <article class="auth-card">
-            <h3>Partner login</h3>
-            <p>Secure access for existing studios, admins, and stylists.</p>
-            <form id="login-form">
-              <label>
-                Work email
-                <input type="email" name="loginEmail" placeholder="you@studio.com" required />
-              </label>
-              <label>
-                Password
-                <input type="password" name="loginPassword" placeholder="••••••••" required />
-              </label>
-              <label class="inline">
-                <input type="checkbox" name="remember" />
-                <span>Keep me signed in</span>
-              </label>
-              <button class="btn" type="submit">Log into Travetic OS</button>
-              <button type="button" class="ghost ghost--light linkish">Forgot password?</button>
-            </form>
-            <div class="auth-meta">
-              <strong>Need seats?</strong> Add or revoke agent access anytime from the
-              billing console.
-            </div>
-          </article>
-          <article class="auth-card">
-            <h3>Create an account</h3>
-            <p>Start a 14-day trial. No credit card required.</p>
-            <form id="signup-form">
-              <label>
-                Studio name
-                <input type="text" name="studio" placeholder="Susegad Journeys" required />
-              </label>
-              <label>
-                Work email
-                <input type="email" name="signupEmail" placeholder="founder@studio.com" required />
-              </label>
-              <label>
-                Phone (WhatsApp)
-                <input type="tel" name="phone" placeholder="+91 98765 43210" required />
-              </label>
-              <label>
-                Monthly package volume
-                <select name="volume">
-                  <option value="under5">Under 5</option>
-                  <option value="5-15">5 – 15</option>
-                  <option value="15-40">15 – 40</option>
-                  <option value="40+">40+</option>
-                </select>
-              </label>
-              <button class="btn" type="submit">Create workspace</button>
-            </form>
-            <ul class="auth-benefits">
-              <li>INR billing + FX guardrails</li>
-              <li>Unlimited destination media</li>
-              <li>24/7 concierge escalation line</li>
-            </ul>
-          </article>
-        </div>
-        <p class="auth-note">
-          Billing currency set to INR by default. Change anytime inside Deal Desk →
-          Billing.
-        </p>
-        <div class="auth-success" id="auth-success" role="status" aria-live="polite"></div>
-      </section>
 
       <section class="section" id="journal">
         <div class="section-header">
