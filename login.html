@@ -34,26 +34,80 @@
     <main>
       <section class="section auth login-layout">
         <div class="login-copy">
-          <h2>Studio partner login</h2>
+          <h2>Choose your path</h2>
           <p>
-            Enter your credentials to reach Travetic OS. Admin seat management now happens through the Render API, and the CRM dashboard lets admins approve bookings and log notes.
+            Select the workflow that matches you: book a concept as a customer or log in as a partner/CRM admin.
           </p>
         </div>
-        <div class="login-forms">
+        <div class="login-columns">
           <article class="auth-card">
-            <h3>Sign in</h3>
-            <form id="site-login-form">
+            <h3>Customer</h3>
+            <form id="customer-login-form">
               <label>
-                Work email
-                <input type="email" name="loginEmail" placeholder="you@studio.com" required />
+                Email
+                <input type="email" name="customerLoginEmail" placeholder="traveler@email.com" required />
               </label>
               <label>
                 Password
-                <input type="password" name="loginPassword" placeholder="••••••••" required />
+                <input type="password" name="customerLoginPassword" placeholder="••••••••" required />
               </label>
-              <button class="btn" type="submit">Log into Travetic OS</button>
+              <button class="btn" type="submit">Customer login</button>
             </form>
-            <p class="auth-note" id="login-feedback" role="status" aria-live="polite"></p>
+            <form id="customer-signup-form">
+              <label>
+                Name
+                <input type="text" name="customerName" placeholder="Riya Kaur" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="customerEmail" placeholder="riya@email.com" required />
+              </label>
+              <label>
+                Travel intent
+                <textarea name="customerMessage" rows="2" placeholder="We want a Goa + Pondy week." required></textarea>
+              </label>
+              <button class="btn btn-outline" type="submit">Request concept</button>
+            </form>
+            <p class="auth-note" id="customer-feedback" role="status" aria-live="polite"></p>
+          </article>
+          <article class="auth-card">
+            <h3>Partner</h3>
+            <form id="partner-login-form">
+              <label>
+                Work email
+                <input type="email" name="partnerLoginEmail" placeholder="studio@travel.com" required />
+              </label>
+              <label>
+                Password
+                <input type="password" name="partnerLoginPassword" placeholder="••••••••" required />
+              </label>
+              <button class="btn" type="submit">Partner login</button>
+            </form>
+            <form id="partner-signup-form">
+              <label>
+                Studio name
+                <input type="text" name="studio" placeholder="Susegad Journeys" required />
+              </label>
+              <label>
+                Work email
+                <input type="email" name="signupEmail" placeholder="founder@studio.com" required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+              </label>
+              <label>
+                Monthly volume
+                <select name="volume">
+                  <option value="under5">Under 5</option>
+                  <option value="5-15">5 – 15</option>
+                  <option value="15-40">15 – 40</option>
+                  <option value="40+">40+</option>
+                </select>
+              </label>
+              <button class="btn btn-outline" type="submit">Partner signup</button>
+            </form>
+            <p class="auth-note" id="partner-feedback" role="status" aria-live="polite"></p>
             <a class="btn btn-outline" href="admin-dashboard.html">Admin CRM</a>
           </article>
         </div>
