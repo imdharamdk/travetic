@@ -861,6 +861,49 @@ main {
   color: var(--muted);
 }
 
+.admin-gate {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 15, 0.95);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.admin-gate-content {
+  background: rgba(4, 7, 20, 0.9);
+  padding: 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  max-width: 360px;
+  text-align: center;
+}
+
+.admin-gate label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1rem auto;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.admin-gate input {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.65rem;
+  color: #fff;
+}
+
+.admin-gate-button {
+  width: 100%;
+}
+
+.admin-gate.hidden {
+  display: none;
+}
+
 .admin-table table {
   width: 100%;
   border-collapse: collapse;

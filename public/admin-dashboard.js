@@ -1,5 +1,9 @@
 const adminTokenInput = document.getElementById('admin-token-input');
 const adminTokenSubmit = document.getElementById('admin-token-submit');
+const adminGateInput = document.getElementById('admin-gate-input');
+const adminGateButton = document.getElementById('admin-gate-button');
+const gateMessage = document.getElementById('admin-gate-message');
+const adminGate = document.getElementById('admin-gate');
 const tokenMessage = document.getElementById('admin-token-message');
 const bookingCountEl = document.getElementById('admin-booking-count');
 const bookingTable = document.getElementById('admin-booking-table');
@@ -11,13 +15,35 @@ const queueRecent = document.getElementById('queue-recent');
 const adminCount = document.getElementById('admin-count');
 const adminNotes = document.getElementById('admin-notes');
 const API_ROOT = '/api';
-let adminToken = '';
+const ADMIN_TOKEN_KEY = 'travetic-admin-token';
+let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
 let bookings = [];
+
+const syncTokenInputs = (token) => {
+  if (adminTokenInput) adminTokenInput.value = token;
+  if (adminGateInput) adminGateInput.value = token;
+};
+
+const hideGate = () => {
+  if (!adminGate) return;
+  adminGate.classList.add('hidden');
+};
+
+const showGate = () => {
+  if (!adminGate) return;
+  adminGate.classList.remove('hidden');
+};
 
 const setStatus = (message, state = 'success') => {
   if (!adminStatus) return;
   adminStatus.textContent = message;
   adminStatus.style.color = state === 'error' ? '#ffb199' : 'var(--accent-2)';
+};
+
+const setGateMessage = (message, state = 'success') => {
+  if (!gateMessage) return;
+  gateMessage.textContent = message;
+  gateMessage.style.color = state === 'error' ? '#ffb199' : 'var(--accent-2)';
 };
 
 const setTokenMessage = (message, state = 'success') => {
@@ -92,6 +118,7 @@ const updateDashboardStats = () => {
 const fetchBookings = async () => {
   if (!adminToken) {
     setTokenMessage('Enter the admin secret before loading bookings.', 'error');
+    showGate();
     return;
   }
   try {
@@ -108,6 +135,8 @@ const fetchBookings = async () => {
     updateDashboardStats();
   } catch (error) {
     setTokenMessage('Invalid token or network error.', 'error');
+    setGateMessage('The token did not unlock the data. Please try again.', 'error');
+    showGate();
   }
 };
 
@@ -155,18 +184,39 @@ const handleAddNote = async (id) => {
   }
 };
 
+const unlockDashboard = (token) => {
+  adminToken = token;
+  sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
+  syncTokenInputs(token);
+  hideGate();
+  fetchBookings();
+};
+
 const handleTokenSubmit = () => {
   const token = adminTokenInput?.value.trim();
   if (!token) {
     setTokenMessage('Token required to load CRM data.', 'error');
     return;
   }
-  adminToken = token;
-  fetchBookings();
+  unlockDashboard(token);
+};
+
+const handleGateAuth = () => {
+  const token = adminGateInput?.value.trim();
+  if (!token) {
+    setGateMessage('Provide the admin secret to continue.', 'error');
+    return;
+  }
+  unlockDashboard(token);
+  setGateMessage('Dashboard unlocked.', 'success');
 };
 
 if (adminTokenSubmit) {
   adminTokenSubmit.addEventListener('click', handleTokenSubmit);
+}
+
+if (adminGateButton) {
+  adminGateButton.addEventListener('click', handleGateAuth);
 }
 
 if (broadcastForm) {
@@ -187,5 +237,12 @@ if (typeof window !== 'undefined') {
   const yearEl = document.getElementById('year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
+  }
+  if (adminToken) {
+    syncTokenInputs(adminToken);
+    hideGate();
+    fetchBookings();
+  } else {
+    showGate();
   }
 }

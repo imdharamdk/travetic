@@ -31,6 +31,18 @@
       </div>
     </header>
     <main>
+      <div class="admin-gate" id="admin-gate">
+        <div class="admin-gate-content">
+          <h2>Admin access required</h2>
+          <p>Only authenticators with the admin secret can open this CRM. Please enter the secret to continue.</p>
+          <label>
+            Admin secret
+            <input id="admin-gate-input" type="password" placeholder="Enter admin token" />
+          </label>
+          <button id="admin-gate-button" class="btn">Unlock dashboard</button>
+          <p class="admin-token-message" id="admin-gate-message"></p>
+        </div>
+      </div>
       <section class="section admin-section">
         <div class="section-header">
           <p class="eyebrow">Admin CRM</p>
