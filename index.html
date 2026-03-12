@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travetic • Curated Travel Intelligence</title>
+    <meta
+      name="description"
+      content="Travetic blends human expertise with travel intelligence to design journeys that feel personal, purposeful, and effortless."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <div class="logo">Travetic</div>
+        <ul class="nav-links">
+          <li><a href="#features">Why Travetic</a></li>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#journeys">Journeys</a></li>
+          <li><a href="#india">Destinations</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#canvas">Trip Canvas</a></li>
+          <li><a href="#community">Community</a></li>
+        </ul>
+        <a class="btn btn-outline" href="#auth">Start trial</a>
+      </nav>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Travel SaaS for premium agencies</p>
+          <h1>
+            Launch <span class="accent">Travetic OS</span> to productize every
+            journey.
+          </h1>
+          <p>
+            Travetic OS merges live inventory, traveler intelligence, and
+            India-ready package labs so studios can ship subscription-grade
+            itineraries with INR quotes in minutes.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#auth">Start free trial</a>
+            <button class="ghost" id="playcase">
+              <span>Play reel</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <strong>140+</strong>
+              <span>Agencies onboarded</span>
+            </div>
+            <div>
+              <strong>₹12Cr</strong>
+              <span>Trips transacted in 2025</span>
+            </div>
+            <div>
+              <strong>99.95%</strong>
+              <span>Platform uptime</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="orbit" id="orbit"></div>
+          <div class="card card--glow">
+            <p>Live mood board</p>
+            <ul>
+              <li>Sunrise yoga over Lisbon rooftops</li>
+              <li>Slow food crawl in Osaka</li>
+              <li>Desert astronomy near Atacama</li>
+            </ul>
+          </div>
+          <div class="card card--photo">
+            <span>Featured micro-stay</span>
+            <strong>Patagonia, Chile</strong>
+            <p>Ice fields, slow cabins, chef-on-call</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="features">
+        <div class="section-header">
+          <p class="eyebrow">Why Travetic</p>
+          <h2>A blended layer of data + human touch</h2>
+          <p>
+            We stitch together cultural calendars, airspace trends, boutique
+            stay intel, and real traveler feedback to deliver experiences that
+            stay resilient—even when plans flex.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Sensing the now</h3>
+            <p>
+              Seasonal pulses, festival unlocks, and last-minute openings are
+              tracked automatically so your plan stays aligned with the moment.
+            </p>
+          </article>
+          <article>
+            <h3>Human travel stylists</h3>
+            <p>
+              Every itinerary is edited by a curator who has lived in the
+              region, ensuring every pivot feels authentic.
+            </p>
+          </article>
+          <article>
+            <h3>Adaptive logistics</h3>
+            <p>
+              Smart buffers, on-call concierges, and backup routes mean fewer
+              headaches when weather or transport shifts.
+            </p>
+          </article>
+          <article>
+            <h3>Impact-first choices</h3>
+            <p>
+              Certified partners and give-back overlays keep your footprint
+              mindful without compromising comfort.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="platform">
+        <div class="platform-grid">
+          <article>
+            <p class="eyebrow">SaaS layers</p>
+            <h2>Travetic OS powers your travel studio</h2>
+            <p>
+              Turn your expertise into a subscription-grade product suite. Unlock
+              self-serve planning, concierge coordination, and real-time package
+              labs through a single login.
+            </p>
+            <ul class="platform-points">
+              <li>
+                <strong>Client Portal</strong>
+                <span>White-label journeys, upload docs, and collect approvals.</span>
+              </li>
+              <li>
+                <strong>Deal Desk</strong>
+                <span>Track INR quotes, FX buffers, and margin guardrails.</span>
+              </li>
+              <li>
+                <strong>Automation</strong>
+                <span>Sync WhatsApp nudges, OTP-secured documents, and GDS pulls.</span>
+              </li>
+            </ul>
+            <div class="platform-cta">
+              <button class="btn" data-auth-open>Book a walkthrough</button>
+              <button class="ghost" id="launch-demo">
+                <span>Launch live demo</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </article>
+          <article class="platform-metrics">
+            <div>
+              <strong>₹4.8L</strong>
+              <span>Avg. package value auto-priced</span>
+            </div>
+            <div>
+              <strong>18 hrs</strong>
+              <span>Ops time saved per itinerary</span>
+            </div>
+            <div>
+              <strong>3.1x</strong>
+              <span>Repeat clients with portal logins</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--cards" id="journeys">
+        <div class="section-header">
+          <p class="eyebrow">Signature routes</p>
+          <h2>Drop-in journeys people love right now</h2>
+        </div>
+        <div class="journey-grid">
+          <article class="journey-card" style="--bg:url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80');">
+            <div>
+              <p class="eyebrow">72h reset</p>
+              <h3>Lisbon terrace interlude</h3>
+              <p>Sunrise tram rides, azulejo workshops, music in secret patios.</p>
+            </div>
+            <button class="tag">Download mini-plan</button>
+          </article>
+          <article class="journey-card" style="--bg:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80');">
+            <div>
+              <p class="eyebrow">Slow long week</p>
+              <h3>Patagonia sky trail</h3>
+              <p>Icefields, heli-assisted hikes, chef-led open fire dinners.</p>
+            </div>
+            <button class="tag">Ask a stylist</button>
+          </article>
+          <article class="journey-card" style="--bg:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80');">
+            <div>
+              <p class="eyebrow">City remix</p>
+              <h3>Tokyo neon kitchens</h3>
+              <p>After-hours omakase, craft cocktail labs, indie design tours.</p>
+            </div>
+            <button class="tag">Hold my spot</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="canvas">
+        <div class="section-header">
+          <p class="eyebrow">Dynamic trip canvas</p>
+          <h2>Prototype your escape in under a minute</h2>
+          <p>
+            Answer a few intent signals and we will auto-assemble a draft plan,
+            complete with the best time window, energy flow, and carbon impact.
+          </p>
+        </div>
+        <div class="canvas">
+          <form class="canvas-form" id="canvas-form">
+            <label>
+              Destination mood
+              <select name="mood">
+                <option value="Mediterranean coasts">Mediterranean coasts</option>
+                <option value="Nordic design cities">Nordic design cities</option>
+                <option value="Highland escapes">Highland escapes</option>
+                <option value="Island hopping">Island hopping</option>
+              </select>
+            </label>
+            <label>
+              Travel pace
+              <div class="pill-group">
+                <input type="radio" id="pace-soft" name="pace" value="Soft & unhurried" checked />
+                <label for="pace-soft" class="pill">Soft & unhurried</label>
+                <input type="radio" id="pace-balanced" name="pace" value="Balanced" />
+                <label for="pace-balanced" class="pill">Balanced</label>
+                <input type="radio" id="pace-energy" name="pace" value="High energy" />
+                <label for="pace-energy" class="pill">High energy</label>
+              </div>
+            </label>
+            <label>
+              Preferred month
+              <input type="month" name="month" value="2026-05" />
+            </label>
+            <label>
+              Travelers
+              <input type="number" name="travelerCount" min="1" value="2" />
+            </label>
+            <label>
+              Sustainability priority
+              <input type="range" name="impact" min="1" max="5" value="3" />
+            </label>
+          </form>
+          <div class="canvas-output" id="canvas-output">
+            <p class="eyebrow">Live concept</p>
+            <h3>Balearic islands in late May</h3>
+            <p>
+              Soft & unhurried pace with 2 travelers. Expect floating brunches,
+              a design-forward finca stay, and a chartered day-sail to Formentera.
+            </p>
+            <ul>
+              <li><span>Best window</span>May 21 – May 27</li>
+              <li><span>Energy flow</span>Calm arrival • Micro-adventure • Open day</li>
+              <li><span>Impact score</span>3.2 tCO₂e offset through mangrove projects</li>
+            </ul>
+            <button class="btn">Send to my inbox</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="community">
+        <div class="section-header">
+          <p class="eyebrow">Community</p>
+          <h2>Travelers keeping memories alive</h2>
+        </div>
+        <div class="testimonial-grid">
+          <article>
+            <p>
+              “Travetic choreographed our Seoul + Jeju sprint with enough buffers
+              to explore side streets without calendar stress.”
+            </p>
+            <span>— Riya & Nikhil, founders on sabbatical</span>
+          </article>
+          <article>
+            <p>
+              “They layered impact partners into our Tanzania route so our kids
+              could see conservation work first-hand.”
+            </p>
+            <span>— The Ahmed family</span>
+          </article>
+          <article>
+            <p>
+              “Daily nudges, live concierge, and zero-hassle reroutes when a
+              storm hit our Amalfi sailing leg.”
+            </p>
+            <span>— Jess, creative director</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="india">
+        <div class="section-header">
+          <p class="eyebrow">India focus</p>
+          <h2>Destinations with cinematic energy</h2>
+          <p>
+            Layer curated visuals, signature experiences, and price-ready data for
+            India’s most in-demand locations.
+          </p>
+        </div>
+        <div class="india-grid">
+          <article>
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80"
+              alt="Goa sunrise beach"
+            />
+            <div>
+              <h3>Goa coastlines</h3>
+              <p>Curated boutique stays, private susegad suppers, surf + spice labs.</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=900&q=80"
+              alt="Jaipur palace"
+            />
+            <div>
+              <h3>Jaipur royals</h3>
+              <p>Heritage havelis, textile ateliers, private astronomer stargazing.</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80"
+              alt="Kerala backwaters"
+            />
+            <div>
+              <h3>Kerala backwaters</h3>
+              <p>Houseboat residencies, Ayurveda immersions, chef-on-board menus.</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=900&q=80"
+              alt="Ladakh mountains"
+            />
+            <div>
+              <h3>Ladakh high desert</h3>
+              <p>Luxury camps, astro nights, carbon-negative drives.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="packages">
+        <div class="section-header">
+          <p class="eyebrow">Ready-to-ship packages</p>
+          <h2>Build transparent INR proposals in seconds</h2>
+          <p>Project monthly revenue with SaaS-ready pricing cards.</p>
+        </div>
+        <div class="package-grid">
+          <article>
+            <p class="eyebrow">City reboot</p>
+            <h3>Delhi + Agra heritage sprint</h3>
+            <ul>
+              <li>3 nights luxury stay w/ private historian</li>
+              <li>Express Gatimaan tickets + chauffeur</li>
+              <li>Chef-led Mughlai tasting + artisan crawl</li>
+            </ul>
+            <div class="package-price">
+              <strong>₹1,85,000</strong>
+              <span>for 2 guests</span>
+            </div>
+            <button class="btn btn-outline" data-auth-open>Send proposal</button>
+          </article>
+          <article>
+            <p class="eyebrow">Wellness arc</p>
+            <h3>Kerala restorative residency</h3>
+            <ul>
+              <li>5 nights Ayurvedic retreat + private doctor</li>
+              <li>Backwater electric houseboat charter</li>
+              <li>Sunset kathakali salon + zero-waste dining</li>
+            </ul>
+            <div class="package-price">
+              <strong>₹2,60,000</strong>
+              <span>per couple</span>
+            </div>
+            <button class="btn btn-outline" data-auth-open>Share deck</button>
+          </article>
+          <article>
+            <p class="eyebrow">Adventure lab</p>
+            <h3>Ladakh heli traverse</h3>
+            <ul>
+              <li>6 nights luxury glamping + expedition crew</li>
+              <li>Heli access to hidden passes & astro pods</li>
+              <li>EV convoy & carbon-neutral assurance</li>
+            </ul>
+            <div class="package-price">
+              <strong>₹4,90,000</strong>
+              <span>per duo</span>
+            </div>
+            <button class="btn btn-outline" data-auth-open>Hold inventory</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section auth" id="auth">
+        <div class="section-header">
+          <p class="eyebrow">Log in or create workspace</p>
+          <h2>Manage your SaaS control center</h2>
+          <p>
+            Issue multi-user logins, push INR-ready proposals, and monitor live
+            bookings from one secure hub.
+          </p>
+        </div>
+        <div class="auth-grid">
+          <article class="auth-card">
+            <h3>Partner login</h3>
+            <p>Secure access for existing studios, admins, and stylists.</p>
+            <form id="login-form">
+              <label>
+                Work email
+                <input type="email" name="loginEmail" placeholder="you@studio.com" required />
+              </label>
+              <label>
+                Password
+                <input type="password" name="loginPassword" placeholder="••••••••" required />
+              </label>
+              <label class="inline">
+                <input type="checkbox" name="remember" />
+                <span>Keep me signed in</span>
+              </label>
+              <button class="btn" type="submit">Log into Travetic OS</button>
+              <button type="button" class="ghost ghost--light linkish">Forgot password?</button>
+            </form>
+            <div class="auth-meta">
+              <strong>Need seats?</strong> Add or revoke agent access anytime from the
+              billing console.
+            </div>
+          </article>
+          <article class="auth-card">
+            <h3>Create an account</h3>
+            <p>Start a 14-day trial. No credit card required.</p>
+            <form id="signup-form">
+              <label>
+                Studio name
+                <input type="text" name="studio" placeholder="Susegad Journeys" required />
+              </label>
+              <label>
+                Work email
+                <input type="email" name="signupEmail" placeholder="founder@studio.com" required />
+              </label>
+              <label>
+                Phone (WhatsApp)
+                <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+              </label>
+              <label>
+                Monthly package volume
+                <select name="volume">
+                  <option value="under5">Under 5</option>
+                  <option value="5-15">5 – 15</option>
+                  <option value="15-40">15 – 40</option>
+                  <option value="40+">40+</option>
+                </select>
+              </label>
+              <button class="btn" type="submit">Create workspace</button>
+            </form>
+            <ul class="auth-benefits">
+              <li>INR billing + FX guardrails</li>
+              <li>Unlimited destination media</li>
+              <li>24/7 concierge escalation line</li>
+            </ul>
+          </article>
+        </div>
+        <p class="auth-note">
+          Billing currency set to INR by default. Change anytime inside Deal Desk →
+          Billing.
+        </p>
+        <div class="auth-success" id="auth-success" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="section" id="journal">
+        <div class="section-header">
+          <p class="eyebrow">Field notes</p>
+          <h2>Signals from the Travetic journal</h2>
+        </div>
+        <div class="journal-grid">
+          <article>
+            <p class="eyebrow">Playbook</p>
+            <h3>The micro-itinerary method</h3>
+            <p>
+              How we shape 18-hour travel slices that can flex in either direction
+              without feeling overplanned.
+            </p>
+            <button class="ghost ghost--light">Read memo</button>
+          </article>
+          <article>
+            <p class="eyebrow">Toolkit</p>
+            <h3>Five sensors we monitor daily</h3>
+            <p>
+              From volcanic alerts to pop-up culinary residencies, this is the
+              stack informing our recommendations.
+            </p>
+            <button class="ghost ghost--light">Open dashboard</button>
+          </article>
+          <article>
+            <p class="eyebrow">Perspective</p>
+            <h3>Designing for regenerative stays</h3>
+            <p>
+              Spotlighting partners turning hospitality footprints into local
+              climate positives.
+            </p>
+            <button class="ghost ghost--light">Explore feature</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--cta" id="cta">
+        <div>
+          <p class="eyebrow">Ready when you are</p>
+          <h2>Let Travetic sketch your next break</h2>
+          <p>
+            Share your intent, and within 48 hours you’ll receive a routed plan,
+            budget guidance, and live chat access to the stylist who built it.
+          </p>
+        </div>
+        <form class="cta-form">
+          <input type="text" placeholder="Name" required />
+          <input type="email" placeholder="Email" required />
+          <textarea placeholder="Where do you want to wake up next?" rows="3"></textarea>
+          <button class="btn" type="submit">Request a concept</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Travetic. Crafted for curious travelers.</p>
+      <div class="footer-links">
+        <a href="#">Instagram</a>
+        <a href="#">Journal</a>
+        <a href="#">Press kit</a>
+      </div>
+    </footer>
+
+    <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <button class="ghost ghost--light" id="close-modal">Close</button>
+        <p class="eyebrow" id="modal-eyebrow">Case study</p>
+        <h3 id="modal-title">48 hours in Copenhagen</h3>
+        <p id="modal-description">
+          A fast-moving founder retreat balancing creative inspiration with deep
+          rest. Download the sample itinerary and budget notes.
+        </p>
+        <button class="btn" id="modal-action" type="button">Get the PDF</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
