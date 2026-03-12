@@ -19,29 +19,29 @@ const ctaFeedback = document.getElementById('cta-feedback');
 const API_ROOT = (window.TRAVETIC_CONFIG?.apiRoot) ?? '/api';
 
 const moodMap = {
-  'Mediterranean coasts': {
-    title: 'Balearic islands drift',
+  'Goan backwaters': {
+    title: 'Goan lagoon drift',
     highlights:
-      'Floating brunches, finca stays, private sail to Formentera and farmhouse dinners.',
-    flow: 'Calm arrival • Micro-adventure • Salt-water reset',
+      'Floating brunches, villa stays, and fishermen-led sundown sails on the Zuari.',
+    flow: 'Sunrise paddles • Slow spa days • Sunset shacks',
   },
-  'Nordic design cities': {
-    title: 'Copenhagen + Stockholm studio hop',
+  'Rajasthan forts': {
+    title: 'Udaipur + Jaigarh retreat',
     highlights:
-      'Studio tours, sauna rituals, chef pop-ups, and hidden vinyl bars curated by locals.',
-    flow: 'Maker crawl • Nature immersion • Late-night jazz',
+      'Mewar hospitality, palace dining, and night-time fort walks with torchlit rituals.',
+    flow: 'Royal arrival • City strolls • Desert finale',
   },
-  'Highland escapes': {
-    title: 'Scottish highlands lodge circuit',
+  'Himalayan highlands': {
+    title: 'Spiti + Ladakh highpass circuit',
     highlights:
-      'Heli drop day hikes, loch kayaking, and chefs bringing zero-mile menus.',
-    flow: 'Wild arrival • Summit push • Fireside tasting',
+      'Heli drops, tea house dinners, and sherpa-led canyon hikes that stay flexible.',
+    flow: 'Altitude acclimatize • Summit trekkings • Fireside recoveries',
   },
-  'Island hopping': {
-    title: 'Cyclades luminous arc',
+  'Southern islands': {
+    title: 'Andaman + Lakshadweep vault',
     highlights:
-      'Boutique katamaran transfers, mezze labs, sunset ceramics, and underwater photography.',
-    flow: 'Sunrise launch • Coastal roaming • Open horizon finale',
+      'Marine biology tours, guided dives, and chef-on-island tastings with beachside stargazing.',
+    flow: 'Marine immersion • Coastal roam • Coral finale',
   },
 };
 
@@ -71,9 +71,9 @@ const monthNames = [
 const modalVariants = {
   caseStudy: {
     eyebrow: 'Case study',
-    title: '48 hours in Copenhagen',
+    title: '48 hours in Udaipur',
     description:
-      'A fast-moving founder retreat balancing creative inspiration with deep rest. Download the sample itinerary and budget notes.',
+      'A founder retreat looping lake-palace dinners, artisan workshops, and concierge spa resets. Download the itinerary + budget notes.',
     action: 'Get the PDF',
     target: '#journal',
   },
@@ -89,30 +89,30 @@ const modalVariants = {
 
 const corridorData = [
   {
-    route: 'Lisbon → Azores',
-    change: '+32% YoY searches',
-    note: 'Micro-stays surging for late spring',
+    route: 'Goa → Lakshadweep',
+    change: '+32% YoY interest',
+    note: 'Monsoon-season micro-ships filling fast',
     tone: 'hot',
     status: 'Hot',
   },
   {
-    route: 'Osaka → Sapporo',
-    change: '+21% seat holds',
-    note: 'Sakura tail demand',
+    route: 'Delhi → Jaipur',
+    change: '+18% heritage bookings',
+    note: 'Fort suites cleared for March festivals',
     tone: 'hot',
     status: 'Hot',
   },
   {
     route: 'Kochi → Ladakh',
     change: '+12% charter asks',
-    note: 'Pre-monsoon buffers request',
+    note: 'High-altitude buffering for summer',
     tone: 'watch',
     status: 'Watch',
   },
   {
-    route: 'Reykjavík → Faroe',
-    change: '-5% week over week',
-    note: 'Storm delays easing',
+    route: 'Mumbai → Spiti',
+    change: '-4% week over week',
+    note: 'Highway maintenance easing delays',
     tone: 'cool',
     status: 'Cooling',
   },
@@ -120,7 +120,7 @@ const corridorData = [
 
 const chartData = [
   {
-    route: 'Patagonia sky trail',
+    route: 'Spiti high pass',
     value: 84,
     detail: 'Crew ready',
   },
@@ -130,7 +130,7 @@ const chartData = [
     detail: 'Ops scaling',
   },
   {
-    route: 'Tokyo neon kitchens',
+    route: 'Mumbai creative crawl',
     value: 63,
     detail: 'Hold chef slots',
   },
@@ -142,10 +142,10 @@ const chartData = [
 ];
 
 const tickerSignals = [
-  'Visas moving faster for Japan 10-day stays',
-  'Atacama observatory reopening 2 April',
+  'New Goa dumpling crawl booking window unlocked',
+  'Lahaul high passes see clear skies through April',
   '75 EV SUVs released in Rajasthan window',
-  'Lisbon rooftops capped at 40 guests per slot',
+  'Udaipur city palace nights capped at 40 per slot',
   'Andaman seaplane maintenance lock from 3–5 April',
 ];
 
