@@ -2,7 +2,7 @@ const loginForm = document.getElementById('site-login-form');
 const signupForm = document.getElementById('site-signup-form');
 const loginFeedback = document.getElementById('login-feedback');
 const claimFeedback = document.getElementById('claim-feedback');
-const API_ROOT = '/api';
+const API_ROOT = (window.TRAVETIC_CONFIG?.apiRoot) ?? '/api';
 
 const setFeedback = (element, message, variant = 'success') => {
   if (!element) return;

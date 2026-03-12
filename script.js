@@ -16,7 +16,7 @@ const insightTicker = document.getElementById('insight-ticker');
 const ctaForm = document.querySelector('.cta-form');
 const ctaFeedback = document.getElementById('cta-feedback');
 
-const API_ROOT = '/api';
+const API_ROOT = (window.TRAVETIC_CONFIG?.apiRoot) ?? '/api';
 
 const moodMap = {
   'Mediterranean coasts': {
