@@ -1,6 +1,6 @@
 # Travetic SaaS
 
-This repo now hosts both the public marketing site (`public/`) and a Node/Express backend that handles bookings, admin claims, and approvals with MongoDB. It is ready to deploy on Render (static + API) with environment variables such as `MONGODB_URI` and `ADMIN_SECRET`.
+This repo now hosts both the public marketing site and a Node/Express backend that handles bookings and approvals with MongoDB. It is ready to deploy on Render (static + API) with environment variables such as `MONGODB_URI` and `ADMIN_SECRET`.
 
 ## Development
 
@@ -31,7 +31,7 @@ This repo now hosts both the public marketing site (`public/`) and a Node/Expres
 ## MongoDB Schema
 
 - `Booking` stores visitor name, email, message, status (`pending`/`approved`), notes, and timestamps.
-- `AdminClaim` remembers the first studio that claims the Travetic OS admin seat (first signup wins).
+- `AdminClaim` remembers which studio was granted the admin seat via the Render API (managed outside the public login page).
 
 ## Admin Access
 
