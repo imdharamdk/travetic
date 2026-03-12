@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travetic • Signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <header class="hero login-hero">
+      <nav class="nav">
+        <div class="logo">Travetic</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="admin-dashboard.html">Admin CRM</a></li>
+        </ul>
+        <a class="btn btn-outline" href="index.html">Back to site</a>
+      </nav>
+      <div class="hero-copy">
+        <p class="eyebrow">Signup</p>
+        <h1>Choose customer or partner signup</h1>
+        <p>Book a concept or register a studio and our Render API will persist everything in MongoDB.</p>
+      </div>
+    </header>
+    <main>
+      <section class="section auth login-layout">
+        <div class="login-copy">
+          <h2>Ready to start?</h2>
+          <p>Customers submit their intent while partners apply for the admin seat. Every payload persists via the API.</p>
+        </div>
+        <div class="login-columns">
+          <article class="auth-card">
+            <h3>Customer signup</h3>
+            <form id="signup-customer-form">
+              <label>
+                Name
+                <input type="text" name="customerName" placeholder="Riya Kaur" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="customerEmail" placeholder="riya@email.com" required />
+              </label>
+              <label>
+                Travel intent
+                <textarea name="customerMessage" rows="3" placeholder="A coastal reset in Goa" required></textarea>
+              </label>
+              <button class="btn" type="submit">Request concept</button>
+            </form>
+            <p class="auth-note" id="signup-customer-feedback"></p>
+          </article>
+          <article class="auth-card">
+            <h3>Partner signup</h3>
+            <form id="signup-partner-form">
+              <label>
+                Studio name
+                <input type="text" name="studio" placeholder="Susegad Journeys" required />
+              </label>
+              <label>
+                Work email
+                <input type="email" name="signupEmail" placeholder="founder@studio.com" required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" name="phone" placeholder="+91 98765 43210" />
+              </label>
+              <label>
+                Monthly volume
+                <select name="volume">
+                  <option value="under5">Under 5</option>
+                  <option value="5-15">5 – 15</option>
+                  <option value="15-40">15 – 40</option>
+                  <option value="40+">40+</option>
+                </select>
+              </label>
+              <button class="btn btn-outline" type="submit">Request partner access</button>
+            </form>
+            <p class="auth-note" id="signup-partner-feedback"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>© <span id="year"></span> Travetic. Crafted for curious travelers.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="admin-dashboard.html">Admin CRM</a>
+      </div>
+    </footer>
+    <script src="signup.js"></script>
+  </body>
+</html>

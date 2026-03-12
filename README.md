@@ -36,4 +36,5 @@ This repo now hosts both the public marketing site and a Node/Express backend th
 ## Admin Access
 
 1. Use the admin secret token (from Render) when the CRM gate prompts you, and type the same token again if the gate reloads.
-2. After the gate unlocks, approve bookings or add notes; the MongoDB data populates the table via the Render API.
+2. After the gate unlocks, approve bookings or add notes; the MongoDB data populates the table via the Render API.  
+3. Point visitors to `signup.html` if they want separate customer/partner signup flows, which also store data in Mongo via `/api/bookings` or `/api/admin/claim`.
