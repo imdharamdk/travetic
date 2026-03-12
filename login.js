@@ -4,6 +4,8 @@ const partnerLoginForm = document.getElementById('partner-login-form');
 const partnerSignupForm = document.getElementById('partner-signup-form');
 const customerFeedback = document.getElementById('customer-feedback');
 const partnerFeedback = document.getElementById('partner-feedback');
+const magicForm = document.getElementById('magic-verify-form');
+const magicFeedback = document.getElementById('magic-feedback');
 const API_ROOT = (window.TRAVETIC_CONFIG?.apiRoot) ?? '/api';
 
 const setFeedback = (element, message, variant = 'success') => {
@@ -12,10 +14,46 @@ const setFeedback = (element, message, variant = 'success') => {
   element.dataset.state = variant;
 };
 
-const handleLogin = (event, feedbackElement, label) => {
+const sendMagicLink = async (email, role, feedbackElement) => {
+  try {
+    const response = await fetch(`${API_ROOT}/magic`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, role }),
+    });
+    if (!response.ok) throw new Error();
+    const { token } = await response.json();
+    setFeedback(
+      feedbackElement,
+      `Magic token sent to ${email}. Use the code ${token} to verify your login.`,
+      'success',
+    );
+  } catch (error) {
+    setFeedback(feedbackElement, 'Unable to send the magic link right now. Try again soon.', 'error');
+  }
+};
+
+const handleMagicVerify = async (event) => {
   event.preventDefault();
-  if (!feedbackElement) return;
-  setFeedback(feedbackElement, `Welcome back, ${label}! Redirecting to Travetic OS.`, 'success');
+  if (!magicForm) return;
+  const formData = new FormData(magicForm);
+  const payload = {
+    email: formData.get('magicEmail'),
+    token: formData.get('magicToken'),
+  };
+  try {
+    const response = await fetch(`${API_ROOT}/magic/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error();
+    const { role } = await response.json();
+    setFeedback(magicFeedback, `Magic token verified. Welcome ${role}!`, 'success');
+    magicForm.reset();
+  } catch (error) {
+    setFeedback(magicFeedback, 'Invalid or expired token. Request a new one.', 'error');
+  }
 };
 
 const handleCustomerSignup = async (event) => {
@@ -63,17 +101,26 @@ const handlePartnerSignup = async (event) => {
       ? 'An admin already exists. You are queued for activation.'
       : 'Studio confirmed as admin. Expect credentials + CRM access shortly.';
     setFeedback(partnerFeedback, successText, 'success');
+    partnerSignupForm.reset();
   } catch (error) {
-    setFeedback(partnerFeedback, 'Unable to claim the admin seat right now. Please try again in a moment.', 'error');
+    setFeedback(partnerFeedback, 'Unable to register right now. Please try again later.', 'error');
   }
 };
 
 if (customerLoginForm) {
-  customerLoginForm.addEventListener('submit', (event) => handleLogin(event, customerFeedback, 'traveler'));
+  customerLoginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = new FormData(customerLoginForm).get('customerLoginEmail');
+    sendMagicLink(email, 'customer', customerFeedback);
+  });
 }
 
 if (partnerLoginForm) {
-  partnerLoginForm.addEventListener('submit', (event) => handleLogin(event, partnerFeedback, 'partner'));
+  partnerLoginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = new FormData(partnerLoginForm).get('partnerLoginEmail');
+    sendMagicLink(email, 'partner', partnerFeedback);
+  });
 }
 
 if (customerSignupForm) {
@@ -82,6 +129,10 @@ if (customerSignupForm) {
 
 if (partnerSignupForm) {
   partnerSignupForm.addEventListener('submit', handlePartnerSignup);
+}
+
+if (magicForm) {
+  magicForm.addEventListener('submit', handleMagicVerify);
 }
 
 if (typeof window !== 'undefined' && window.document) {

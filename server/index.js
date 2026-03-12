@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const crypto = require('crypto');
 
 dotenv.config();
 
@@ -57,6 +58,16 @@ const adminClaimSchema = new mongoose.Schema(
 
 const Booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
 const AdminClaim = mongoose.models.AdminClaim || mongoose.model('AdminClaim', adminClaimSchema);
+const magicTokenSchema = new mongoose.Schema(
+  {
+    email: { type: String, required: true },
+    token: { type: String, required: true },
+    role: { type: String, enum: ['customer', 'partner'], required: true },
+    expiresAt: { type: Date, required: true },
+  },
+  { timestamps: true },
+);
+const MagicToken = mongoose.models.MagicToken || mongoose.model('MagicToken', magicTokenSchema);
 
 const requireAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization || '';
@@ -143,6 +154,36 @@ app.use(express.static(frontRoot));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontRoot, 'index.html'));
+});
+
+const createMagicToken = () => crypto.randomBytes(3).toString('hex');
+
+app.post('/api/magic', async (req, res) => {
+  const { email, role } = req.body;
+  if (!email || !role) {
+    return res.status(400).json({ error: 'Email and role are required' });
+  }
+  if (!['customer', 'partner'].includes(role)) {
+    return res.status(400).json({ error: 'Unsupported role' });
+  }
+  const token = createMagicToken();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+  await MagicToken.create({ email, role, token, expiresAt });
+  console.log(`[magic] token for ${email} (${role}): ${token}`);
+  return res.status(201).json({ message: 'Magic token issued', token });
+});
+
+app.post('/api/magic/verify', async (req, res) => {
+  const { email, token } = req.body;
+  if (!email || !token) {
+    return res.status(400).json({ error: 'Email and token required' });
+  }
+  const record = await MagicToken.findOne({ email, token });
+  if (!record || record.expiresAt < new Date()) {
+    return res.status(400).json({ error: 'Invalid or expired token' });
+  }
+  await MagicToken.deleteMany({ email });
+  return res.json({ success: true, role: record.role });
 });
 
 app.listen(PORT, () => {
