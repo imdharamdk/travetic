@@ -23,6 +23,7 @@ const adminTable = document.getElementById('admin-table');
 const adminBroadcast = document.getElementById('admin-broadcast');
 const adminStatus = document.getElementById('admin-status');
 let adminStatusTimer;
+const firstAdminKey = 'travetic-first-admin';
 
 const moodMap = {
   'Mediterranean coasts': {
@@ -521,7 +522,26 @@ if (signupForm) {
     const formData = new FormData(signupForm);
     const studio = formData.get('studio') || 'your studio';
     showAuthFeedback(
-      `${studio} is queued for activation. Our team will share login credentials on email + WhatsApp within 12 hours.`,
+      (() => {
+        const email = formData.get('signupEmail');
+        const phone = formData.get('phone');
+        const volume = formData.get('volume');
+        const storedAdmin = localStorage.getItem(firstAdminKey);
+        if (!storedAdmin) {
+          localStorage.setItem(
+            firstAdminKey,
+            JSON.stringify({
+              studio,
+              email,
+              phone,
+              volume,
+              assignedAt: new Date().toISOString(),
+            }),
+          );
+          return `${studio} is live as Travetic OS admin. You have full control while we dial in the first experience—expect credentials + concierge reach-out within 12 hours.`;
+        }
+        return `${studio} is queued for activation. Our team will share login credentials on email + WhatsApp within 12 hours.`;
+      })(),
       'success',
     );
   });
